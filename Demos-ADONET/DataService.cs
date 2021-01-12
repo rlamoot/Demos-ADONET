@@ -122,7 +122,8 @@ namespace Demos_ADONET
             return aantalBieren;
 
         }
-
+        //1. Maak een methode die alle Brouwers
+        //   teruggeeft uit de Bierendatabase roep deze aan vanuit Program.cs en schrijf de brouwergegevens naar de console
         public IList<Brouwer> GeefAlleBrouwers()
         {
             IList<Brouwer> brouwers = new List<Brouwer>();

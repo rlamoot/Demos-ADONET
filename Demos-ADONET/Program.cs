@@ -13,12 +13,15 @@ namespace Demos_ADONET
             //bierenDataService.OpenEnSluitConnectie();
 
             //bierenDataService.UpdateBierenAlcoholPercentage();
+
             //IList<Brouwer> BrouwersDb = bierenDataService.GeefAlleBrouwers();
             //foreach (Brouwer brouwer in BrouwersDb)
             //{
             //    Console.WriteLine($"{brouwer.BrouwerNr} : {brouwer.BrNaam} : {brouwer.Adres} : {brouwer.PostCode} : {brouwer.Gemeente} : {brouwer.Omzet}");
             //}
+
             //IList<Bier> bierenUitDb = bierenDataService.GeefAlleBieren();
+
             //IList<Soort> soortenUitDb = bierenDataService.GeefAlleSoorten();
             //foreach (Soort soort in soortenUitDb)
             //{

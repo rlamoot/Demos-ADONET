@@ -89,6 +89,10 @@ namespace DemoDataSet
             //Voorbeeld dataset autos
 
             DataTable autosTable = new DataTable("Auto");
+            autosTable.Columns.Add(new DataColumn() { ColumnName = "AutoID", DataType = typeof(Int32), AutoIncrement = true });
+            autosTable.Columns.Add(new DataColumn() { ColumnName = "Merk", DataType = typeof(string) });
+            autosTable.Columns.Add(new DataColumn() { ColumnName = "Kleur", DataType = typeof(string) });
+            autosTable.Columns.Add(new DataColumn() { ColumnName = "Model", DataType = typeof(string) });
             DataTable klantenTable = wnTable; //new DataTable("Klant"); (zie code hierboven)
             DataTable bestellingenTable = new DataTable("Bestelling");
             bestellingenTable.Columns.Add(new DataColumn() { ColumnName = "BestID", DataType= typeof(Int32) ,AutoIncrement = true });
@@ -100,9 +104,14 @@ namespace DemoDataSet
             PKBestelling[0] = bestellingenTable.Columns["BestID"];
             bestellingenTable.PrimaryKey = PKBestelling;
 
+            DataColumn[] PKAuto = new DataColumn[1];
+            PKAuto[0] = autosTable.Columns["AutoID"];
+            autosTable.PrimaryKey = PKAuto;
+
             //  Data Set
             DataSet autosDataSet =
                            new DataSet("AutosDataSet");
+
             // tabellen toevoegen aan dataset
             autosDataSet.Tables.Add(bestellingenTable);
             autosDataSet.Tables.Add(klantenTable);
@@ -113,11 +122,12 @@ namespace DemoDataSet
                 // parent 
              autosDataSet.Tables["Klant"].Columns["KlantID"],
              // child	 
-            autosDataSet.Tables["Bestelling"]. Columns["BestID"]);
+            autosDataSet.Tables["Bestelling"]. Columns["KlantID"]);
             autosDataSet.Relations.Add(dr1); // Exception
-            //DataRelation dr2 = new DataRelation("AutosBestelling", autosDataSet.Tables["Auto"].Columns["AutoID"],
-            //   autosDataSet.Tables["Bestelling"].Columns["AutoID"]);
-            //autosDataSet.Relations.Add(dr2);
+
+            //relatie tussen auto's en bestellingen
+            DataRelation dr2 = new DataRelation("AutoBestellingen", autosDataSet.Tables["Auto"].Columns["AutoID"], autosDataSet.Tables["Bestelling"].Columns["AutoID"]);
+            autosDataSet.Relations.Add(dr2);
 
             // Haal rij op 
             DataRow drKlant = autosDataSet.Tables["Klant"].Rows[0];
@@ -133,6 +143,8 @@ namespace DemoDataSet
                     Console.WriteLine("Bestelling Id: " + r["BestID"]);
 
             autosDataSet.WriteXml("autos.xml", XmlWriteMode.WriteSchema);
+
+
 
             Console.ReadKey();
         }
